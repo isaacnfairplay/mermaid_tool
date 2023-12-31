@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mermaid Charts</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <button id="modeToggle">Toggle Dark/Light Mode</button>
+
+    <h2>Add Task to Gantt Chart</h2>
+    <form id="taskForm">
+        <input type="text" id="sectionName" placeholder="Section Name" required>
+        <input type="text" id="taskName" placeholder="Task Name" required>
+        <input type="text" id="duration" placeholder="Duration (e.g., 30d)" required>
+        <input type="text" id="startDate" placeholder="Start Date (YYYY-MM-DD)">
+        <input type="text" id="dependency" placeholder="After Task (task ID)">
+        <button type="submit">Add Task</button>
+    </form>
+
+    <h2>Gantt Chart</h2>
+    <textarea id="ganttInput" rows="10" cols="50" placeholder="Enter Gantt Chart data here...">
+gantt
+    title A Gantt Diagram
+    dateFormat  YYYY-MM-DD
+    section Section
+    A task           :a1, 2023-01-01, 30d
+    Another task     :after a1  , 20d
+    section Another
+    Task in sec      :2023-01-12  , 12d
+    another task    : 24d
+    </textarea><br>
+
+    <div id="ganttContainer">
+        <div class="mermaid">
+        </div>
+    </div>
+
+    <h2>Gantt Chart Syntax Explanation</h2>
+    <p>
+        The syntax for creating a Gantt chart in Mermaid.js is straightforward and intuitive. It starts with the keyword 'gantt' to indicate the type of chart. The 'title' directive sets the chart's title. 'dateFormat' specifies the format used for dates, typically 'YYYY-MM-DD'. Sections are created with the 'section' keyword, followed by a title. Each task within a section starts with a description, followed by a colon, an identifier, a start date, and a duration (e.g., '30d' for 30 days). Dependencies can be expressed using the 'after' keyword. This simple syntax allows for the creation of complex Gantt charts with ease.
+    </p>
+</body>
+</html>
