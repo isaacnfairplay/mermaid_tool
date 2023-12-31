@@ -1,0 +1,78 @@
+body {
+    transition: background-color 0.3s, color 0.3s;
+    font-family: Arial, sans-serif;
+}
+
+#taskForm {
+    margin: 10px 0;
+}
+
+#taskForm input, #taskForm button {
+    margin: 5px;
+    padding: 8px;
+}
+
+#taskForm button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#modeToggle {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#modeToggle:hover {
+    background-color: #45a049;
+}
+
+#taskForm, #ganttInput, #ganttContainer {
+    margin-bottom: 20px;
+}
+
+#ganttInput {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.dark-mode {
+    background-color: #1a1a1a;
+    color: white;
+}
+
+.dark-mode #taskForm, .dark-mode #ganttInput {
+    background-color: #333;
+    color: white;
+}
+
+.dark-mode #taskForm input, .dark-mode #taskForm button {
+    background-color: #555;
+    color: white;
+}
+
+.dark-mode #taskForm button {
+    background-color: #4CAF50;
+}
+
+/* Additional styles as needed */
+:root {
+    --highlight-color-light: red; /* Replace with your preferred color for light mode */
+    --highlight-color-dark: white; /* Replace with your preferred color for dark mode */
+}
+
+body.light-mode {
+    --highlight-color: var(--highlight-color-light);
+}
+
+body.dark-mode {
+    --highlight-color: var(--highlight-color-dark);
+}
+.highlight {
+    color: var(--highlight-color);
+}
