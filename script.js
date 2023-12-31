@@ -104,12 +104,26 @@ if ('serviceWorker' in navigator) {
   
   function cacheGantt(text) {
     if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+      console.log('Caching gantt text: ', text); // Log the text being cached
       navigator.serviceWorker.controller.postMessage({
         type: 'CACHE_GANTT',
         text: text
       });
     }
-  }
+    }
+
+    function loadGantt() {
+        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+          const messageChannel = new MessageChannel();
+          messageChannel.port1.onmessage = function(event) {
+            console.log('Received gantt text: ', event.data); // Log the text being received
+            document.getElementById('ganttText').value = event.data;
+          };
+          navigator.serviceWorker.controller.postMessage({
+            type: 'GET_GANTT'
+          }, [messageChannel.port2]);
+        }
+    }   
 
 function loadGantt() {
     if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
