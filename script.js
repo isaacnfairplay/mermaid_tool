@@ -114,15 +114,29 @@ if ('serviceWorker' in navigator) {
 
     function loadGantt() {
         if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-          const messageChannel = new MessageChannel();
-          messageChannel.port1.onmessage = function(event) {
-            if (event.data !== null) { // Check if event.data is not null
-              document.getElementById('ganttText').value = event.data;
-            }
-          };
-          navigator.serviceWorker.controller.postMessage({
-            type: 'GET_GANTT'
-          }, [messageChannel.port2]);
+            const messageChannel = new MessageChannel();
+            messageChannel.port1.onmessage = function(event) {
+                const ganttTextElement = document.getElementById('ganttText');
+                if (event.data !== null) { // Check if event.data is not null
+                    ganttTextElement.value = event.data;
+                } else {
+                    // Load default data if there's no data in the cache
+                    ganttTextElement.value = `
+                        gantt
+                            title A Gantt Diagram
+                            dateFormat  YYYY-MM-DD
+                            section Section
+                            A task           :a1, 2023-01-01, 30d
+                            Another task     :after a1  , 20d
+                            section Another
+                            Task in sec      :2023-01-12  , 12d
+                            another task    : 24d
+                    `;
+                }
+            };
+            navigator.serviceWorker.controller.postMessage({
+                type: 'GET_GANTT'
+            }, [messageChannel.port2]);
         }
     }
   
