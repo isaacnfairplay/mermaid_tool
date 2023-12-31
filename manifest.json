@@ -2,7 +2,9 @@
     "name": "Gant Chart App",
     "short_name": "GanttApp",
     "description": "This app is for quick development of Gantt Charts with mermaid.js",
-    "start_url": "/",
+    "start_url": "/mermaid_tool/",
+    "id": "/mermaid_tool/"
+  }
     "display": "standalone",
     "background_color": "#fff",
     "theme_color": "#3f51b5",
