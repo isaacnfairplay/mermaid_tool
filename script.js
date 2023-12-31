@@ -116,26 +116,15 @@ if ('serviceWorker' in navigator) {
         if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
           const messageChannel = new MessageChannel();
           messageChannel.port1.onmessage = function(event) {
-            console.log('Received gantt text: ', event.data); // Log the text being received
-            document.getElementById('ganttText').value = event.data;
+            if (event.data !== null) { // Check if event.data is not null
+              document.getElementById('ganttText').value = event.data;
+            }
           };
           navigator.serviceWorker.controller.postMessage({
             type: 'GET_GANTT'
           }, [messageChannel.port2]);
         }
-    }   
-
-function loadGantt() {
-    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-      const messageChannel = new MessageChannel();
-      messageChannel.port1.onmessage = function(event) {
-        document.getElementById('ganttText').value = event.data;
-      };
-      navigator.serviceWorker.controller.postMessage({
-        type: 'GET_GANTT'
-      }, [messageChannel.port2]);
     }
-  }
   
   // Call loadGantt when the page loads
   window.addEventListener('load', loadGantt);
