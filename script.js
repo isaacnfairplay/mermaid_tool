@@ -62,6 +62,7 @@ function toggleDarkMode() {
 function updateGanttChart() {
     const theme = !isDarkMode ? 'dark' : 'default';
     const input = document.getElementById('ganttInput').value;
+    cacheGantt(input);
     const ganttContainer = document.getElementById('ganttContainer');
 
     clearGanttContainer(ganttContainer);
@@ -89,3 +90,26 @@ function initializeMermaid(theme) {
         theme: theme
     });
 }
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+        // Registration was successful
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }, function(err) {
+        // registration failed :(
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    });
+  }
+  
+  function cacheGantt(text) {
+    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage({
+        type: 'CACHE_GANTT',
+        text: text
+      });
+    }
+  }
+  
+  // Call cacheGantt whenever you want to cache the Gantt text
+  
