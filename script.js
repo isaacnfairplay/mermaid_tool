@@ -110,6 +110,18 @@ if ('serviceWorker' in navigator) {
       });
     }
   }
+
+function loadGantt() {
+    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+      const messageChannel = new MessageChannel();
+      messageChannel.port1.onmessage = function(event) {
+        document.getElementById('ganttText').value = event.data;
+      };
+      navigator.serviceWorker.controller.postMessage({
+        type: 'GET_GANTT'
+      }, [messageChannel.port2]);
+    }
+  }
   
-  // Call cacheGantt whenever you want to cache the Gantt text
-  
+  // Call loadGantt when the page loads
+  window.addEventListener('load', loadGantt);
